@@ -15,6 +15,11 @@ func GetMinecraftList()(resp http.Response){
 	return resp
 }
 
+func GetMinecraftServerIp(name string)(resp http.Response){
+	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/ip")
+	return resp.Body
+}
+
 func GetMinecraftServer(name string)(resp http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name)
 	return resp
