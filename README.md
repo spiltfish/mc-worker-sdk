@@ -1,0 +1,1 @@
+mc-worker-sdk is the bindings for the mc-worker. These bindings are intended to be consumed as the interface to the worker.
