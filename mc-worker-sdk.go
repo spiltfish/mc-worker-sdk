@@ -20,6 +20,11 @@ func GetMinecraftServerIp(name string)(resp http.Response){
 	return resp.Body
 }
 
+func GetMinecraftServerStatus(name string)(resp http.Response){
+	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/status")
+	return resp.Body
+}
+
 func GetMinecraftServer(name string)(resp http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name)
 	return resp
