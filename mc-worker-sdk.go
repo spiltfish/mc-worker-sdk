@@ -30,24 +30,28 @@ func GetMinecraftServer(name string)(resp *http.Response){
 	return resp
 }
 
-func CreateMinecraftServer(name string)(resp http.Response){
-	resp, _ = http.NewRequest("PUT", WorkerAddress + "/minecraft/" + name, "")
+func CreateMinecraftServer(name string)(resp *http.Response){
+	req, _ = http.NewRequest("PUT", WorkerAddress + "/minecraft/" + name, nil)
+	resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
-func PowerOnServer(name string)(resp http.Response){
-	resp, _ = http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
-		"{ \"Power\" : \"off\" } ")
+func PowerOnServer(name string)(resp *http.Response){
+	req, _ = http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
+		bytes.NewBufferString("{ \"Power\" : \"off\" } "))
+        resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
-func PowerOffServer(name string)(resp http.Response){
-	resp, _ = http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
-		"{ \"Power\" : \"on\" } ")
+func PowerOffServer(name string)(resp *http.Response){
+	req, _ = http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
+		bytes.NewBufferString("{ \"Power\" : \"on\" } "))
+	resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
-func DeleteMinecraftServer(name string)(resp http.Response){
-	resp, _ = http.NewRequest("DELETE", WorkerAddress + "/minecraft/" + name, "")
+func DeleteMinecraftServer(name string)(resp *http.Response){
+	res, _ = http.NewRequest("DELETE", WorkerAddress + "/minecraft/" + name, nil)
+	rep, _ = http.DefaultClient.Do(req)
 	return resp
 }
