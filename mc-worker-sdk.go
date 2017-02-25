@@ -2,6 +2,7 @@ package mc_worker_sdk
 
 import (
 	"net/http"
+	"bytes"
 )
 
 var ( WorkerAddress string )
