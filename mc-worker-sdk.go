@@ -16,17 +16,19 @@ func GetMinecraftList()(resp *http.Response){
 	return resp
 }
 
-func GetMinecraftServerIp(name string)(resp *http.Response){
+func GetMinecraftServerIp(name string)(ip []byte){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/ip")
-	return resp
+	ip, _ = ioutil.Readall(response.Body)
+	return ip
 }
 
 func GetMinecraftServerStatus(name string)(resp *http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/status")
+	status, _ = ioutil.ReadAll(response.Body)
 	return resp
 }
 
-func GetMinecraftServer(name string)(resp *http.Response){
+func GetMinecraftServer(name string)(status []byte){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name)
 	return resp
 }
