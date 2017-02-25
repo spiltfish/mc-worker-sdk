@@ -10,22 +10,22 @@ func SetServer( workerAddress string){
 	WorkerAddress = workerAddress
 }
 
-func GetMinecraftList()(resp http.Response){
+func GetMinecraftList()(resp *http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft")
 	return resp
 }
 
-func GetMinecraftServerIp(name string)(resp http.Response){
+func GetMinecraftServerIp(name string)(resp *http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/ip")
-	return resp.Body
+	return resp
 }
 
-func GetMinecraftServerStatus(name string)(resp http.Response){
+func GetMinecraftServerStatus(name string)(resp *http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/status")
-	return resp.Body
+	return resp
 }
 
-func GetMinecraftServer(name string)(resp http.Response){
+func GetMinecraftServer(name string)(resp *http.Response){
 	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name)
 	return resp
 }
