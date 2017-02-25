@@ -2,6 +2,7 @@ package mc_worker_sdk
 
 import (
 	"net/http"
+	"io/ioutil"
 	"bytes"
 )
 
@@ -23,7 +24,7 @@ func GetMinecraftServerIp(name string)(ip []byte){
 }
 
 func GetMinecraftServerStatus(name string)(status []byte){
-	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name + "/status")
+	resp, _ := http.Get( WorkerAddress + "/minecraft/" + name + "/status")
 	status, _ = ioutil.ReadAll(response.Body)
 	return status
 }
