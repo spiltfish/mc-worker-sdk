@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"bytes"
+	"fmt"
 )
 
 var ( WorkerAddress string )
@@ -13,49 +14,73 @@ func SetServer( workerAddress string){
 }
 
 func GetMinecraftList()(resp *http.Response){
-	resp, _ = http.Get( WorkerAddress + "/minecraft")
+	resp, err := http.Get( WorkerAddress + "/minecraft")
+	if err != nil {
+		fmt.Println("Error getting server list: ", err)
+	}
 	return resp
 }
 
 func GetMinecraftServerIp(name string)(ip []byte){
-	response, _ := http.Get( WorkerAddress + "/minecraft/" + name + "/ip")
+	response, err := http.Get( WorkerAddress + "/minecraft/" + name + "/ip")
+	if err != nil {
+		fmt.Println("Error getting server IP: ", err)
+	}
 	ip, _ = ioutil.ReadAll(response.Body)
 	return ip
 }
 
 func GetMinecraftServerStatus(name string)(status []byte){
-	response, _ := http.Get( WorkerAddress + "/minecraft/" + name + "/status")
+	response, err := http.Get( WorkerAddress + "/minecraft/" + name + "/status")
+	if err != nil {
+		fmt.Println("Error getting status: ", err)
+	}
 	status, _ = ioutil.ReadAll(response.Body)
 	return status
 }
 
 func GetMinecraftServer(name string)(resp *http.Response){
-	resp, _ = http.Get( WorkerAddress + "/minecraft/" + name)
+	resp, err := http.Get( WorkerAddress + "/minecraft/" + name)
+	if err != nil {
+		fmt.Println("Error getting Server Info: ", err)
+	}
 	return resp
 }
 
 func CreateMinecraftServer(name string)(resp *http.Response){
-	req, _ := http.NewRequest("PUT", WorkerAddress + "/minecraft/" + name, nil)
+	req, err := http.NewRequest("PUT", WorkerAddress + "/minecraft/" + name, nil)
+	if err != nil {
+		fmt.Println("Error Creating Server: ", err)
+	}
 	resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
 func PowerOnServer(name string)(resp *http.Response){
-	req, _ := http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
+	req, err := http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
 		bytes.NewBufferString("{ \"Power\" : \"off\" } "))
+	if err != nil {
+		fmt.Println("Error powering off server: ", err)
+	}
         resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
 func PowerOffServer(name string)(resp *http.Response){
-	req, _ := http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
+	req, err := http.NewRequest("POST", WorkerAddress + "/minecraft/" + name,
 		bytes.NewBufferString("{ \"Power\" : \"on\" } "))
+	if err != nil {
+		fmt.Println("Error powering off server: ", err)
+	}
 	resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
 
 func DeleteMinecraftServer(name string)(resp *http.Response){
-	req, _ := http.NewRequest("DELETE", WorkerAddress + "/minecraft/" + name, nil)
+	req, err := http.NewRequest("DELETE", WorkerAddress + "/minecraft/" + name, nil)
+	if err != nil {
+		fmt.Println("Error deleting server: ", err)
+	}
 	resp, _ = http.DefaultClient.Do(req)
 	return resp
 }
